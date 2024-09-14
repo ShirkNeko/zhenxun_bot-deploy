@@ -6,8 +6,8 @@ update_shell_url="https://raw.githubusercontent.com/zhenxun-org/zhenxun_bot-depl
 zhenxun_url="https://github.com/HibiKier/zhenxun_bot.git"
 WORK_DIR="/home"
 TMP_DIR="$(mktemp -d)"
-python_v="python3.8"
-which python3.9 >> /dev/null 2>&1 && python_v="python3.9"
+python_v="python3.11"
+which python3.11 >> /dev/null 2>&1 && python_v="python3.11"
 sh_ver="1.1.3"
 ghproxy="https://ghproxy.com/"
 mirror_url="https://pypi.org/simple"
@@ -92,7 +92,7 @@ Installation_dependency() {
         yum -y update
         yum install -y git fontconfig mkfontscale epel-release wget vim curl zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gcc make libffi-devel
         if  ! which python3.8 && ! which python3.9; then
-            wget https://mirrors.huaweicloud.com/python/3.9.10/Python-3.9.10.tgz -O ${TMP_DIR}/Python-3.9.10.tgz && \
+            wget https://mirrors.huaweicloud.com/python/3.9.10/Python-3.9.10 .tgz -O ${TMP_DIR}/Python-3.9.10.tgz && \
                 tar -zxf ${TMP_DIR}/Python-3.9.10.tgz -C ${TMP_DIR}/ &&\
                 cd ${TMP_DIR}/Python-3.9.10 --with-ensurepip=install && \
                 ./configure && \
@@ -104,10 +104,10 @@ Installation_dependency() {
         rpm -v --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro
         rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
         yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
-        yum install -y postgresql13-server ffmpeg ffmpeg-devel atk at-spi2-atk cups-libs libxkbcommon libXcomposite libXdamage libXrandr mesa-libgbm gtk3
-        /usr/pgsql-13/bin/postgresql-13-setup initdb
-        systemctl enable postgresql-13
-        systemctl start postgresql-13
+        yum install -y postgresql15-server ffmpeg ffmpeg-devel atk at-spi2-atk cups-libs libxkbcommon libXcomposite libXdamage libXrandr mesa-libgbm gtk3
+        /usr/pgsql-13/bin/postgresql-15-setup initdb
+        systemctl enable postgresql-15
+        systemctl start postgresql-15
         cat > /tmp/sql.sql <<-EOF
 CREATE USER zhenxun WITH PASSWORD 'zxpassword';
 CREATE DATABASE zhenxun OWNER zhenxun;
@@ -156,9 +156,9 @@ EOF
         apt-get install -y software-properties-common ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-ukai fonts-arphic-uming
         fc-cache -f -v
         echo -e "\n" | add-apt-repository ppa:deadsnakes/ppa
-        if  ! which python3.8 && ! which python3.9;then
-            apt-get install -y python3.9-full
-            python_v="python3.9"
+        if  ! which python3.11 && ! which python3.11;then
+            apt-get install -y python3.11-full
+            python_v="python3.11"
         fi
         apt-get install -y \
             vim \
